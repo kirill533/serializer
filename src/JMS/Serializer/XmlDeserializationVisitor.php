@@ -189,7 +189,7 @@ class XmlDeserializationVisitor extends AbstractVisitor implements NullAwareVisi
                 }
 
                 foreach ($nodes as $v) {
-                    $key = isKVP ? $v->getName() : count($result);
+                    $key = $isKVP ? $v->getName() : count($result);
                     $result[$key] = $this->navigator->accept($v, $type['params'][0], $context);
                 }
 
