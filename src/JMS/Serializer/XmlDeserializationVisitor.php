@@ -158,14 +158,14 @@ class XmlDeserializationVisitor extends AbstractVisitor implements NullAwareVisi
             $classMetadata = $this->objectMetadataStack->top();
             $namespace = isset($classMetadata->xmlNamespaces['']) ? $classMetadata->xmlNamespaces[''] : $namespace;
         }
-
+        $isKVP = (null !== $this->currentMetadata && $this->currentMetadata->xmlKeyValuePairs);
         $nsName = "";
         if (null !== $namespace) {
             $prefix = uniqid('ns-');
             $data->registerXPathNamespace($prefix, $namespace);
-            $nsName = $prefix . ':':
-		}
-        $nsName .=  (null !== $this->currentMetadata && $this->currentMetadata->xmlKeyValuePairs) ? '*' : $entryName
+            $nsName = $prefix . ':';
+        }
+        $nsName .=  $isKVP ? '*' : $entryName;
         $nodes = $data->xpath($nsName);
 
 
@@ -189,7 +189,7 @@ class XmlDeserializationVisitor extends AbstractVisitor implements NullAwareVisi
                 }
 
                 foreach ($nodes as $v) {
-                    $key = (null !== $this->currentMetadata && $this->currentMetadata->xmlKeyValuePairs) ? $v->getName() : count($result);
+                    $key = isKVP ? $v->getName() : count($result);
                     $result[$key] = $this->navigator->accept($v, $type['params'][0], $context);
                 }
 
