@@ -1,6 +1,7 @@
 {
     "name": "bim/serializer",
     "type": "library",
+    "version": "1.8.2",
     "description": "Library for (de-)serializing data of any complexity; supports XML, JSON, and YAML.",
     "keywords": ["serialization", "deserialization", "json", "jaxb", "xml"],
     "homepage": "http://jmsyst.com/libs/serializer",
